@@ -3,6 +3,12 @@
   sudo: false
   notifications:
     email: true
+  env:
+    global:
+      - secure: "CXpFcT1lsqK1JQpS5wlRgoEJ4jrkCM8E/8rHiOYdFgBpFi8ommZunJp8mltC2fDH/8pzC3dTUQrQ35dVxffcH7XAQ/KVG2jSw+ApO8yx8jBw96CdgJWukMzo2tNKr0XjEpew6qEKellme8U+YONgVsOfcgvaySRP8o+PdJ2JiONWPa4UJEJzp6FiuDk1I0SO4uftVXV29K9W3ZidpZUeoAJZf9+6IJXu6apvIpSVkV1Iq63SdzEe87Qe5OUiN5btMx+76DkbgY+RSFBxGr2PQYb93R0uAjckkUWp/1f4Gv/lTRJimdcTkNF3/WrQ9KkGm2dsYo417mN51h+650vFKUdz7/9Gs0J4pPVL0kOMhoPj/SyCgVXovgdseMM4fVLCYkkoah3Sj/a+9ItWsNa5+XNuWEW5FMRNIHyck3Dh9t/99f/0SsAfxG/YrWX5Cj40FnF9CYz4cA2E5CCr6NTWrX9ZJWxF6cI8pvuOgPZ7E60vRSVA5+A8Fk8Rzpz4hSGQQ13nbTmnF1jcFcMG5sr5WxMtfl0IwLY97G2rEruyA56ixbkBp04klEuG/7b/HZkGN0HVQ1VI5Dr+u5tOJAFotM+Iy0bgP28SfMEoG+a3d88U83AH1O70ne8wg1OOLf89ePpO1JhNeMjuf/EC0KiJYaiYWCmqfU+ShCnaPDm+Y0k="
+      - secure: "cSSmSCZ+L1vsNB9bduvsJ+xBpPY0ggDg+C/81fIZRBFYXPRiAKAQcOd8wt/e5R6nnqFTVEw+luwsx+t4zs2ccdEtCP/rw3uoFAAT0SJjAYOQRFaN14IloYaDW/9Beng84Yc1QKhZZhT+BN5z4CuXBkSGGnnAbXzUvbXGjNokIxt9ontiYJDNb9KS39nILYtbHluDMa+5NOzNTxG3EpNvKd92uvjUd+W4wE+ppmka28P2DZkq5qaTpmgkmuD6qXdo6ZoAUdxXtBv7dY9AX+RhwVo2xwmtCJxnmKqcnwQHL5G921oqjwIIaxPay2J8i0Y/n67RFHMrIMikHoS2uZOyfadgdtb2FSVQQ4QG6YWC/ibKk+kFj6w8vLMpdJdrI0Ma/b1KqnneljcySH7knG0ZyQTO915luQMPM1ArXPLDBG/Jm5c9gMemDlqNNLIVHyDkTXVPHnYH5tpGcf2q47RhjQBTU5U/Fs8QT9JrcqG/jiT82u9huP24syeoBrdfzzlr60kGK7N3lxmHnYAtmbogIVEkq1Vo+EI5Z2QiOx7qSfWJY85Xh2muMTZ6mb3CZRgOCf7WaB+Rsh5FJMq17AnA09tiVmFygQWyqMYEplNNS93gJR/M5KOQatOgScXVesWE7QxUvpjptZfluKicfXQqXRHvnBVP8EhCWOCh0nqYvlY="
+      - secure: "OtAIXvhgBo2wkfeGKu0iynw2wRn+PO2+s/8VlIQ05XtqPmy/IozJsnx49gGg1bszBj8sCQn4DbHWFMwLU3TqrEWaqy+DP3JIwkKZ57pLVBTxQ0P8LIfVNsmtm6KwlU51E/jhYy0QCyndxyGLh6eKptbVV2/p17+i5XOQVGIJDgg88gQZ7GFqJfN7KkQd6OhnBzaFM2yhTCLKUxll/Qz4chC3pJ03xZJTyGnvAumiHu4fxzpyoS3/Nf1vudaB2G0RZL7VgOth7ltFYYYTjX9yblwA/TgTJBOkaPNwFAgmJe3OBckUWIyWKENYgn0AUEtfA0YrBghX4CoBkY2nRNeM+pJ2d2TdOAvZ3PfgI449ENCGzpzXbiRH5PdBhcoWn7BG11IZAB1258XdF2Cq5uUK6utqddyEpYDFlwYMceeCJah99wlS9QHDyajZr0r9SAS2fo2lfE4PtpXOOf8bw7EofZCyXuRzUsmceJ6IocomnAfnWpMaZq/kgEodIdq7sOE+2Kl3ViNt1n8VYZFuGHtk4ZvV/7yXk7ICgjEopBweuB+Art00LJfx20FycvoCc191dwva0XXvvNrQx03kJs/eOneoRcJ/rBl9YpAn+d4m6RPBDGbiHjHdYib/uUH8/yDhc0Qm94LQKblwHiHds6VoShJeRgPopSRzE28alA7A+ak="
+      - COMMIT=${TRAVIS_COMMIT::8}
   go:
     - 1.7.4
   install:
@@ -13,3 +19,11 @@
     - test -z "$(golint ./... | grep -v vendor | tee /dev/stderr)"
     - test -z "$(gofmt -s -l . | grep -v vendor | tee /dev/stderr)"
     - make release
+  after_success:
+  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+  - export REPO=sebestblog/travis-demo
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - docker build -f Dockerfile -t $REPO:$COMMIT .
+  - docker tag $REPO:$COMMIT $REPO:$TAG
+  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+  - docker push $REPO
