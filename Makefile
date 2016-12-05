@@ -3,7 +3,7 @@ PREFIX?=$(shell pwd)
 
 # Setup name variables for the package/tool
 NAME := weather
-PKG := github.com/jessfraz/$(NAME)
+PKG := github.com/smalldave/$(NAME)
 
 # Set any default go build tags
 BUILDTAGS :=
@@ -13,7 +13,7 @@ BUILDDIR := ${PREFIX}/cross
 
 # Populate version variables
 # Add to compile time flags
-VERSION := $(shell cat VERSION)
+VERSION := $(shell cat VERS)
 GITCOMMIT := $(shell git rev-parse --short HEAD)
 GITUNTRACKEDCHANGES := $(shell git status --porcelain --untracked-files=no)
 ifneq ($(GITUNTRACKEDCHANGES),)
@@ -24,7 +24,7 @@ GO_LDFLAGS=-ldflags "-w $(CTIMEVAR)"
 GO_LDFLAGS_STATIC=-ldflags "-w $(CTIMEVAR) -extldflags -static"
 
 # List the GOOS and GOARCH to build
-GOOSARCHES = darwin/amd64 darwin/386 freebsd/amd64 freebsd/386 linux/arm linux/arm64 linux/amd64 linux/386 solaris/amd64 windows/amd64 windows/386
+GOOSARCHES = darwin/amd64
 
 all: clean build fmt lint test vet install ## Runs a clean, build, fmt, lint, test, vet and install
 
