@@ -6,7 +6,6 @@ notifications:
   email: true
 env:
   global:
-  - secure: QNAqaI5c2xNnGVyIehCr8jVvqVxXVKy8/Td65bxjNSrmRNKMIeCh2wjeVEPceLLxIEBCfQiuuPQzb4FODL293IF28qvoWEj2Iha5b3hlTwk1mj8WmvsVKCsb7no5ZY55DEPKvWreRPUF049ivk7XrjCZvF4vWSrnG5Cbp3Qq560Kx5dbhb1z+Qg+a7q6e7lqn1oH/s7tJe9hKR/cwyJSNiiltN1Gw4eyxnxqY7nYmqWbqe4YHqmQoUDbiXT0/n7eBEz800b9DS/E252ZDkUteZ3YwK93sl9AkRt0JvjZN5Vup/AI3XzOL8QXXdYrnO5dx9uP+pRKgpes8Owx1rMG2N5VXdZbGeUDi5R4pDlU53SnChlp5WGdZtLkLkuWID5nqfZxZirWqXhqblYnDYOYBjVLBmABEG7y4ACr+lxSY6WlV0Be9PPU/1BdXnDzmMq+qumTaGJGFIUwS6DG9aKHLUXUQQy/QKn0dMUGMDkCA3xx55bTCn+9lMtgw8G04QRSQIhGn6DSLbB6rV7kisf2GjGf+zIR509XBQKfBVZbogXAf8Od0h5AU3XexeilQ+gkKjdcUr8q503j61onRZHuoSdObNsi7SWnBPs9YVBzvZRtiT8OC1Q/3FGRY4aorSEU3tQ/7LMopIct/DO4yBWLYJSZKRXyWWKW8aP83jQzdUE=
   - secure: PSTtZjzHf8uVOpSegb5HOCnR3IV3jockSunXsHDt2Q47DVMs3pO2h43QbjLHMXGC+Q3blLfwW51HtyULUAfdGb/7y6ugPjVI93c/5WNdOhWkx1RrjFIkOC6Um/9xSdLKzHOe3r0FcVbrsM/YCn7YvKBqe8SgCpzpThT+f5MDh+tqVxp4CmOX+8VFtIjYRzywdMamYp7cY20qvDX1z6ACFTQHduq6/WMgsBQ+oqxxm2uw4uIcog1reY7OVlTUJdwRNtAN3Ss3mQqNIPvKnc7D1pMXltLXRvWnpNZZEJKJG8HFzxt2Ls4M7UxYuvODBp4wH8JNimWRW2Lbo/ck4WnfW0bmZ3oP07eaRphO1MHfEtrNpcNPjwzH1n+kvqCn0SSxBiNtgfu/rf7JgzMeBq8thKgrEqBZAH608dSDLHHYc/HQ74FJClKOgB9+kVCCjxEpo1/1l6gsGsNh+QK4QGqI5N4gq+0tc+WfDla09daU+y6aXGF7Twj3/wzzvl/2nZgrQa1PP5ouF39tTr6+8DEfWmzLAXMCC5T1SnGcLKWBOFS0q9U8+XuJSGL3HkWiGOB4Q62Xc3Mj7s5PItcc1YAIXTG1TwQZNfrn7GvUq63XpNIMWbGL52nTiNRqPSqzddekrkIiq5MUlLeUKisb5eUz2TltubQxkZcJeZxSGDDyg+I=
   - secure: CXiL6CFnmNg0GkfT4t6w/B2+jN1g7clVsG//M2wx5qz4irJUo8hBSYgSixWfLIMobGQtLOY7nQmoqUXP/ev4f2wEACOqQ12oKPnd8cqScNxjZ9WaWLYzfSdO9VmfMryUed7iXyngalEyj5bADfHBBgj36DI8W5iPJn/jjSmsZMn1rG2opJJnJpKZ0Yg9A73J1mxf9dRZqr7CKzORpSgjqO4sK1OWLGAas+wIWBtw4pT8Vigr7vVOl/X4qtiSS+3Rl+9p/M4vxs00x1CAwkegqf47uh1Z1jk+6DqkeWDzsbaW5YA1WcHYJpOgJpK74kKPyp0etftk4B3ZglFxziUd3WAdAlRCh3eoCa3+4Ga2iRMtK4MQ85U/HZxYiuovi6EkdBUhY2rg2baBz7XeKhbGedEc7LzHtkUbRSXweNaZiNfrJPTU9bfjLVHQCjJ3lfZbJQGqIpnL5VYxWRyP88Kf1/SukyywkUpyxwjpyBNdi+04ChZx+wEoYvIBEHQaA/i9g4Fo58p5JFkPg5Ad24hWWiJmrOPaRNbyS30tAK6bIdOC1nfMIpkFYjuTlpf3X6GD8K/rEx8TmmtyM11RJHsSwAWncUBMbvbg6y7zqDu0/YJvi+kYZELZBZ3XuyOLF3BbPDfQxbtxzifBgqg7UFW4T/CphRz2wa2OLFVBgZ9K4+A=
   - COMMIT=${TRAVIS_COMMIT::8}
@@ -21,7 +20,7 @@ script:
 - test -z "$(gofmt -s -l . | grep -v vendor | tee /dev/stderr)"
 - make release
 after_success:
-- docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+- docker login -u $DOCKER_USER -p "$DOCKER_PASS"
 - export REPO=smalldave/weather
 - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH
   ; fi`
