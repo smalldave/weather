@@ -4,21 +4,7 @@
 
 Weather via the command line. Uses the [forecast.io](http://forecast.io) API so it's super accurate. Also includes any current weather alerts in the output.
 
-## Installation
-
-#### Binaries
-
-- **darwin** [386](https://github.com/jessfraz/weather/releases/download/v0.9.1/weather-darwin-386) / [amd64](https://github.com/jessfraz/weather/releases/download/v0.9.1/weather-darwin-amd64)
-- **freebsd** [386](https://github.com/jessfraz/weather/releases/download/v0.9.1/weather-freebsd-386) / [amd64](https://github.com/jessfraz/weather/releases/download/v0.9.1/weather-freebsd-amd64)
-- **linux** [386](https://github.com/jessfraz/weather/releases/download/v0.9.1/weather-linux-386) / [amd64](https://github.com/jessfraz/weather/releases/download/v0.9.1/weather-linux-amd64) / [arm](https://github.com/jessfraz/weather/releases/download/v0.9.1/weather-linux-arm) / [arm64](https://github.com/jessfraz/weather/releases/download/v0.9.1/weather-linux-arm64)
-- **solaris** [amd64](https://github.com/jessfraz/weather/releases/download/v0.9.1/weather-solaris-amd64)
-- **windows** [386](https://github.com/jessfraz/weather/releases/download/v0.9.1/weather-windows-386) / [amd64](https://github.com/jessfraz/weather/releases/download/v0.9.1/weather-windows-amd64)
-
-#### Via Go
-
-```bash
-$ go get github.com/jessfraz/weather
-```
+This is a modified version of github.com/jessfraz/weather that also creates a scratch based docker image
 
 ## Usage
 
@@ -53,30 +39,6 @@ $ weather -d 3
 # get the weather in Manhattan Beach, CA
 # even includes alerts
 $ weather -l "Manhattan Beach, CA"
-#                             .;odc
-#                           ;kXNNNO
-#                         .0NNO0NN:
-#                        'XNK; dNNl
-#                        KNX'  'XNK.
-#                       ,NNk    cXNK,
-#                       ,NNk     '0NNO:.
-#                     .'cXNXl;,.   ,xXNNKOxxxk0Xx
-#                 'lOXNNNNNNNNNNXOo'  ':oxkOXNNXc
-#               cKNNKd:'.    ..;d0NNKl    ,xXNK,
-#        .;:cclKNXd.              .oXNXxOXNNXl
-#    .cOXNNNNNNNO.                  .kNNNNNNNXOc.
-#   lXNXx;.    .                      .    .;dXNXo
-#  ONNd.                                       oXN0.
-# dNNo                                          cNNk
-# XNN.                                           NNX
-# 0NN'                                          .NNK
-# ;XN0.                                        .ONNc
-#  ;XNXo.                                    .lXNX:
-#   .oXNX0dlcclx0Xo.              .oXKxlccldOXNXd.
-#      ,lk0KXXK0xKNN0o;..    ..;o0NNKx0KXXX0ko,
-#                 'lOXNNNNNNNNNNXOo,
-#                     :x0XNNX0x:.
-#
 #
 # Current weather is Partly Cloudy in Manhattan Beach in California for July 14 at 4:14am EDT
 # The temperature is 69.2°F, but it feels like 69.2°F
@@ -112,7 +74,7 @@ $ weather -l "Manhattan Beach, CA"
 #             Created: July 13 at 10:50pm EDT
 #             Expires: July 14 at 7:00pm EDT
 #
-# Ick! The humidity is 85%
+# The humidity is 85%
 # The nearest storm is 18 miles NE away
 # The wind speed is 3.96 mph SE
 # The cloud coverage is 35%
@@ -135,6 +97,3 @@ release                        Builds the cross compiled binaries, naming them i
 tag                            Create a new git tag to prepare to build a release
 test                           Runs the go tests
 vet                            Verifies `go vet` passes
-```
-
-[![Analytics](https://ga-beacon.appspot.com/UA-29404280-16/weather/README.md)](https://github.com/jessfraz/weather)
