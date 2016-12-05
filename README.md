@@ -1,6 +1,6 @@
 # weather
 
-[![Travis CI](https://travis-ci.org/smalldave/weather.svg?branch=master)](https://travis-ci.org/jessfraz/weather)
+[![Travis CI](https://travis-ci.org/smalldave/weather.svg?branch=master)](https://travis-ci.org/smalldave/weather)
 
 Weather via the command line. Uses the [forecast.io](http://forecast.io) API so it's super accurate. Also includes any current weather alerts in the output.
 
